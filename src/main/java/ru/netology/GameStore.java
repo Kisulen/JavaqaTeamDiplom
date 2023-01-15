@@ -49,6 +49,7 @@ public class GameStore {
         } else {
             playedTime.put(playerName, hours);
         }
+
     }
 
     /**
