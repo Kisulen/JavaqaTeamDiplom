@@ -18,9 +18,10 @@ public class GameStoreTest {
     public void shouldNotContainNewGame() {
 
         GameStore store = new GameStore();
-        Game game =  new Game("Нетология Баттл Онлайн", "Аркады", store);
+        Game game = new Game("Нетология Баттл Онлайн", "Аркады", store);
         assertFalse(store.containsGame(game));
     }
+
     @Test
     public void shouldFindBestPlayerIfNotEqual() {
         GameStore store = new GameStore();
@@ -62,5 +63,18 @@ public class GameStoreTest {
         int actual = store.getSumPlayedTime();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldSumPlayedTimeIfSeveral() {
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Petya", 3);
+        store.addPlayTime("Olga", 5);
+
+        int expected = 8;
+        int actual = store.getSumPlayedTime();
+        assertEquals(expected, actual);
+    }
+
 
 }
