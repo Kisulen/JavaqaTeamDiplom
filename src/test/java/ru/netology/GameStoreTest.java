@@ -15,12 +15,22 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldNotContainNewGame() {
+    public void shouldNotContainNewGameNoGames() {
 
         GameStore store = new GameStore();
         Game game = new Game("Нетология Баттл Онлайн", "Аркады", store);
         assertFalse(store.containsGame(game));
     }
+
+    @Test
+    public void shouldNotContainNewGameGamesExist() {
+
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game2 = new Game("Нетология Баттл Онлайн-2", "Аркады", store);
+        assertFalse(store.containsGame(game2));
+    }
+
 
     @Test
     public void shouldFindBestPlayerIfNotEqual() {
