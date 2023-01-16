@@ -98,7 +98,7 @@ public class PlayerTest {
         Game game = store.publishGame("Eldorado", "Quest");
 
         Player player = new Player("Petya");
-        //player.installGame(game);
+        player.installGame(game);
 
         int expected = 0;
         int actual = player.play(game, 0);
@@ -106,7 +106,7 @@ public class PlayerTest {
         assertEquals(expected,actual);
     }
 
-    /*@Test
+    @Test
     public void throwsRuntimeException() {
         GameStore store = new GameStore();
         Game game = store.publishGame("Neverhood", "Quest");
@@ -114,10 +114,10 @@ public class PlayerTest {
         Player player = new Player("Petya");
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                //код, который выбрасывает RTE
+                player.play(game,7)
                 );
 
-    }*/
+    }
 
     @Test
     public void shouldReturnNullForMostPlayedByGenre () {
