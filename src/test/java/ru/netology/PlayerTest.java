@@ -19,20 +19,21 @@ public class PlayerTest {
         Player player = new Player("Petya");
         player.installGame(game);
         player.play(game, 3);
+        player.play(game, 13);
 
-        int expected = 3;
+        int expected = 16;
         int actual = player.sumGenre(game.getGenre());
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldSumGenreIfNoGamesPlayed() {
+    public void shouldSumGenreIfNoGamesOfThisGenrePlayed() {
         GameStore store = new GameStore();
         Game game = store.publishGame("Treasure Hunt", "Three in a row");
 
         Player player = new Player("Petya");
         player.installGame(game);
-        player.play(game, 0);
+        player.play(game, 19);
 
         int expected = 0;
         int actual = player.sumGenre("Аркады");
@@ -51,10 +52,10 @@ public class PlayerTest {
         player.play(game1, 3);
 
         player.installGame(game2);
-        player.play(game1, 4);
+        player.play(game2, 4);
 
         player.installGame(game3);
-        player.play(game1, 5);
+        player.play(game3, 5);
 
         int expected = 12;
         int actual = player.sumGenre("Three in a row");
@@ -120,7 +121,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void shouldReturnNullForMostPlayedByGenre () {
+    public void gameNotPlayedForMostPlayedByGenre () {
         GameStore store = new GameStore();
         Game game = store.publishGame("Eldorado", "Quest");
 
@@ -154,5 +155,52 @@ public class PlayerTest {
         Assertions.assertEquals(expected,actual);
     }
 
+    @Test
+    public void genreNotPlayedForMostPlayedByGenre () {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Treasure Hunt", "Three in a row");
+        Game game2 = store.publishGame("Butterflies", "Three in a row");
+        Game game3 = store.publishGame("Royal Gems", "Three in a row");
+
+        Player player = new Player("Petya");
+        player.installGame(game1);
+        player.installGame(game2);
+        player.installGame(game3);
+        player.play(game1, 13);
+        player.play(game2, 18);
+        player.play(game3, 2);
+
+        Game expected = null;
+        Game actual = player.mostPlayerByGenre("Quest");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldFindMostPlayedGameWithinSeveralGenres () {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Treasure Hunt", "Three in a row");
+        Game game2 = store.publishGame("Butterflies", "Three in a row");
+        Game game3 = store.publishGame("Royal Gems", "Three in a row");
+        Game game4 = store.publishGame("Neverhood", "Quest");
+        Game game5 = store.publishGame("Eldorado", "Quest");
+
+
+        Player player = new Player("Petya");
+        player.installGame(game1);
+        player.installGame(game2);
+        player.installGame(game3);
+        player.installGame(game4);
+        player.installGame(game5);
+        player.play(game1, 30);
+        player.play(game2, 18);
+        player.play(game3, 2);
+        player.play(game4, 13);
+        player.play(game5, 19);
+
+
+        Game expected = game5;
+        Game actual = player.mostPlayerByGenre("Quest");
+        Assertions.assertEquals(expected,actual);
+    }
     // другие ваши тесты
 }
