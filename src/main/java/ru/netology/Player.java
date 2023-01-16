@@ -41,7 +41,7 @@ public class Player {
             throw new RuntimeException("Игра должна быть установлена");
         }
         game.getStore().addPlayTime(name, hours);
-        if (playedTime.containsKey(game)) {
+        if (playedTime.get(game) > 0) {
             playedTime.put(game, playedTime.get(game) + hours);
         } else {
             playedTime.put(game, hours);
