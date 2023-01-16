@@ -33,7 +33,6 @@
                     <failIfNoTests>true</failIfNoTests>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -52,10 +51,8 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                    </executions>
+              </executions>
             </plugin>
-
-
         </plugins>
     </build>
 
